@@ -7,10 +7,11 @@ const saveSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    saved: [{
-        productId: { type: ObjectId, ref: "ProductPro", required: true ,trim: true},
-        isSaved: { type: Boolean,default:true}
-    }],
+    // saved: [{
+    productId: { type: ObjectId, ref: "ProductPro", required: true ,trim: true},
+        
+    isSaved: { type: Boolean,default:true}
+    // }],
 
 
 }, { timestamps: true })

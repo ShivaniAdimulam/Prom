@@ -3,6 +3,9 @@ const productModel = require('../model/productmodel')
 const saveModel = require('../model/savemodel')
 const userModel = require('../model/usermodel')
 const validator = require('../middleware/validation')
+
+
+
 const addTosave=async(req,res)=>{
 
     try{
@@ -24,46 +27,20 @@ const addTosave=async(req,res)=>{
         if (Object.keys(body).length === 0) { return res.status(400).send({ status: false, message: "Please enter Data " }) }
         
 
-        let prevsaved=await saveModel.findOne({userId:userid})
-
+        let prevsaved=await saveModel.findOne({userId:userid,productId:productid})
+         
+       
         if(prevsaved){
-            let newsaved = prevsaved.saved
-            let ns={}
-
-            let initial = 0
-                for (let i = 0; i < prevsaved.saved.length; i++) {
-                    if (prevsaved.saved[i].productId == productid) {
-                       
-                        initial = 1
-                        
-                    }
-                }
-                //let pro=await productModel.findById(productid)
-                ns['productId']=productid
-
-                ns['isSaved']=true;
-                if (initial == 0) {
-                    newsaved.push(ns)
-                } 
             
-                let updata = await saveModel.findOneAndUpdate({ userId: userid }, { $set: { saved:newsaved} }, { new: true })
-
-                return res.status(200).send({msg:"saved data",data:updata})
+               return res.status(200).send({msg:"product is already saved",data:prevsaved})
         
         }else{
             body.userId=userid; 
             console.log(body)
-            let saving={}
-
-            saving['productId']=productid;
-            
-            body.saved=saving
-            // body.saved.isSaved=true      
-            console.log(body)
-
+           
             let data=await saveModel.create(body)
 
-            return res.status(200).send({msg:"product saved",data:data})
+            return res.status(200).send({msg:"Product saved",data:data})
         }
 
         
@@ -74,4 +51,8 @@ const addTosave=async(req,res)=>{
 }
 
 
+
 module.exports.addTosave=addTosave;
+
+
+

@@ -7,6 +7,8 @@ const auth = require('../middleware/middleware')
 const productController = require('../controller/productController')
 const cartController = require('../controller/cartController')
 const orderController = require('../controller/orderController')
+const saveController = require('../controller/saveController')
+
 
 
 // user Api
@@ -37,6 +39,8 @@ router.post('/users/:userId/orders' ,auth.authentication, orderController.create
 
 router.get('/users/:userid/orders', auth.authentication, orderController.getorder)
 
+//save api
+router.post('/products/:userid/save',auth.authentication,saveController.addTosave)
 
 
 module.exports = router

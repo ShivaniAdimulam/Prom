@@ -51,7 +51,7 @@ const createCart = async (req, res) => {
 
                 let cart = await cartModel.create(data)
 
-                let updateprod= await productModel.findOneAndUpdate({_id:productId},{$set:{isSaved:true}})
+                //let updateprod= await productModel.findOneAndUpdate({_id:productId},{$set:{isSaved:true}})
                 
                 return res.status(201).send({ status: true, message: "cart data created successfully", data: cart })
 
@@ -101,7 +101,7 @@ const createCart = async (req, res) => {
 
                 let upCart = await cartModel.findOneAndUpdate({ userId: UserId }, { $set: { items: newitems, totalPrice: tatalvalue } }, { new: true })
                 
-                let updateprod= await productModel.findOneAndUpdate({_id:productId},{$set:{isSaved:true}})
+               // let updateprod= await productModel.findOneAndUpdate({_id:productId},{$set:{isSaved:true}})
                 
                 return res.status(200).send({ status: true, message: "cart data added successfully in a cart", data: upCart })
             }
